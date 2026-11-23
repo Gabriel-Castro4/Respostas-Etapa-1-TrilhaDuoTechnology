@@ -7,9 +7,32 @@ class GerenciadorFrota {
   }
 
   adicionarVeiculo(id, modelo, marca, ano, precoDiaria, disponivel) {
-    this.veiculos.push(new veiculos(id, modelo, marca, ano, precoDiaria, disponivel));
-    console.log(`Veículo adicionado: ${modelo} (id ${id})`);
+  if (
+    !Number.isInteger(id) ||
+    typeof modelo !== 'string' || modelo.trim() === '' ||
+    typeof marca !== 'string' || marca.trim() === '' ||
+    !Number.isInteger(ano) ||
+    typeof precoDiaria !== 'number' || precoDiaria <= 0 ||
+    typeof disponivel !== 'boolean'
+  ) {
+    console.log('Dados do veículo inválidos.');
+    return false;
   }
+
+  const idExistente = this.veiculos.some(v => v.id === id);
+
+  if (idExistente) {
+    console.log(`Já existe um veículo com o id ${id}.`);
+    return false;
+  }
+
+  this.veiculos.push(
+    new veiculos(id, modelo, marca, ano, precoDiaria, disponivel)
+  );
+
+  console.log(`Veículo adicionado: ${modelo} (id ${id})`);
+  return true;
+}
 
   atualizarVeiculo(id, modelo, marca, ano, precoDiaria, disponivel) {
     const veiculo = this.veiculos.find(v => v.id === id);
@@ -39,9 +62,14 @@ class GerenciadorFrota {
   
 
   calcularReceitaPotencial(dias) {
-    return this.veiculos
-      .filter(v => v.disponivel)
-      .reduce((total, v) => total + v.precoDiaria * dias, 0);
+  if (!Number.isInteger(dias) || dias <= 0) {
+    console.log('Quantidade de dias inválida.');
+    return 0;
+  }
+
+  return this.veiculos
+    .filter(v => v.disponivel === true)
+    .reduce((total, v) => total + v.precoDiaria * dias, 0);
   }
 }
 

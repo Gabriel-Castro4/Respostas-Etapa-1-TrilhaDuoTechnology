@@ -5,16 +5,57 @@ async function executar() {
     const rl = readline.createInterface({ input: stdin, output: stdout });
 
     const anoAtual = 2026;
+    
+    let resposta = (await rl.question('Digite seu nome completo: ')).trim();
 
-    const nome = await rl.question('Digite seu nome completo: ');
-    const idade = Number(await rl.question('Insira sua idade: '));
+while (!/^[\p{L}\p{M}]+(?:[ '-][\p{L}\p{M}]+)*$/u.test(resposta)) {
+  console.log('Nome inválido!');
+  resposta = (await rl.question('Digite seu nome completo novamente: ')).trim();
+}
+
+const nome = resposta;
+
+     resposta = (await rl.question('Insira sua idade: ')).trim();
+
+    while (resposta === '' || !Number.isInteger(Number(resposta))) {
+    console.log('Idade inválida');
+    resposta = (await rl.question('Insira sua idade novamente: ')).trim();
+}
+
+    const idade = Number(resposta);
+
     //lembrar de sempre colocar pontos nos números decimais
-    const altura = Number(await rl.question('Insira sua altura em metros: '));
-    const peso = Number(await rl.question('Insira seu peso em kg: '));
+     resposta = (await rl.question('Digite sua altura em metros: ')).trim();
+
+while (
+  resposta === '' ||
+  !Number.isFinite(Number(resposta)) ||
+  Number(resposta) <= 0
+) {
+  console.log('Altura inválida. Digite um valor maior que zero.');
+  resposta = (await rl.question('Digite sua altura novamente: ')).trim();
+}
+
+const altura = Number(resposta);
+    
+
+    resposta = (await rl.question('Digite seu peso em kg: ')).trim();
+
+while (
+  resposta === '' ||
+  !Number.isFinite(Number(resposta)) ||
+  Number(resposta) <= 0
+) {
+  console.log('Peso inválido. Digite um valor maior que zero.');
+  resposta = (await rl.question('Digite seu peso novamente: ')).trim();
+}
+
+const peso = Number(resposta);
 
     const anoNascimento = anoAtual - idade;
 
     console.log(`Olá, ${nome}! Você nasceu em ${anoNascimento}, tem ${idade} anos, mede ${altura} metros e pesa ${peso} kg.`);
+    
     console.log('-------------------------------');
     console.log('Exercício 2');
 

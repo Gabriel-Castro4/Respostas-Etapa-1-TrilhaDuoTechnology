@@ -8,7 +8,14 @@ async function executar() {
 
 
     console.log('Exercício 1')
-    let limite = Number(await rl.question('Digite um número: '));
+    let resposta = (await rl.question('Digite um número: ')).trim();
+
+    while (resposta === '' || !Number.isInteger(Number(resposta))) {
+    console.log('Número inválido!');
+    resposta = (await rl.question('Insira o número novamente: ')).trim();
+}
+
+let limite = Number(resposta);
     
     //São apenas divididos por 1 eles mesmos
     //Esse primeiro for é o contador 
@@ -28,8 +35,15 @@ async function executar() {
     }
     console.log('-------------------------------')
     console.log('Exercício 2')
+    resposta = (await rl.question('Digite um número: ')).trim();
 
-    let numeroFatorar = Number(await rl.question('Digite um número inteiro e positivo: '));
+    while (resposta === '' || !Number.isInteger(Number(resposta))) {
+    console.log('Número inválido!');
+    resposta = (await rl.question('Insira o número novamente: ')).trim();
+}
+
+    let numeroFatorar = Number(resposta);
+
 
     let aux = numeroFatorar;
     let exibirFatorial = numeroFatorar + ' x ';
@@ -49,10 +63,24 @@ async function executar() {
     console.log('-------------------------------')
     console.log('Exercício 3')
 
-    let inicio = Number(await rl.question('Digite o inicio: '));
-    let fim = Number(await rl.question('Digite o fim: '));
+    resposta = (await rl.question('Digite o inicio: ')).trim();
+
+    while (resposta === '' || !Number.isInteger(Number(resposta)) || resposta < 0) {
+    console.log('Número inválido!');
+    resposta = (await rl.question('Insira o início novamente: ')).trim();
+    }
+
+    inicio = Number(resposta);
+
+    resposta = (await rl.question('Digite o fim: ')).trim();
+     while (resposta === '' || !Number.isInteger(Number(resposta)) || resposta < 0) {
+    console.log('Número inválido!');
+    resposta = (await rl.question('Insira o fim novamente: ')).trim();
+    }
+    fim = Number(resposta);
 
     let soma = 0;
+    if(inicio < fim){
     for(inicio; inicio <= fim; inicio++) {
         if(inicio % 2 !== 0){
             soma += inicio;
@@ -60,10 +88,35 @@ async function executar() {
         console.log(inicio);
     }
     console.log(soma);
+}else{
+    for(fim; fim <= inicio; inicio--) {
+        if(inicio % 2 !== 0){
+            soma += inicio;
+        }
+        console.log(inicio);
+    }
+    console.log(soma);
+} 
     console.log('-------------------------------')
     console.log('Exercício 4')
-        let n = Number(await rl.question('Digite o número da tabuada que deseja: '));
-        let m = Number(await rl.question('Digite até onde a tabuada será feita: '));
+
+    resposta = (await rl.question('Digite o número da tabuada que deseja: ')).trim();
+
+    while (resposta === '' || !Number.isInteger(Number(resposta)) || resposta < 0) {
+    console.log('Número inválido!');
+    resposta = (await rl.question('Digite o número da tabuada que deseja: ')).trim();
+    }
+
+    let n = Number(resposta);
+
+    resposta = (await rl.question('Digite até onde a tabuada será feita: ')).trim();
+
+    while (resposta === '' || !Number.isInteger(Number(resposta)) || resposta < 0) {
+    console.log('Número inválido!');
+    resposta = (await rl.question('Digite até onde a tabuada será feita: ')).trim();
+    }
+
+    let m = Number(resposta);
     
     for(let i = 1; i <= m; i++) {
         console.log(n + ' x ' +  i  + ' = ' + (n * i));
@@ -71,7 +124,14 @@ async function executar() {
     console.log('-------------------------------')
     console.log('Exercício 5')
 
-    const num = Number(await rl.question('Digite o número do triângulo invertido que deseja: '));
+    resposta = (await rl.question('Digite o número do triângulo invertido que deseja: ')).trim();
+
+    while (resposta === '' || !Number.isInteger(Number(resposta)) || resposta < 0) {
+    console.log('Número inválido!');
+    resposta = (await rl.question('Digite o número do triângulo invertido que deseja: ')).trim();
+    }
+
+    let num = Number(resposta);
 
     for (let linha = num; linha >= 1; linha--) {
     let exibir = '';
